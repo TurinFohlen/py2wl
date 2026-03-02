@@ -1,0 +1,1291 @@
+- python_path: sympy.Symbol
+  wolfram_function: Symbol
+  input_converter: to_wl_string
+  output_converter: from_wxf
+  tags:
+  - symbol
+  - variable
+  - symbolic
+  description: Create symbolic variable 创建符号变量
+
+- python_path: sympy.symbols
+  wolfram_function: Symbol
+  input_converter: to_wl_string
+  output_converter: from_wxf
+  tags:
+  - symbols
+  - variable
+  - symbolic
+  description: Create multiple symbolic variables 批量创建符号变量
+
+- python_path: sympy.sympify
+  wolfram_function: ToExpression
+  input_converter: to_wl_string
+  output_converter: from_wxf
+  tags:
+  - sympify
+  - parse
+  - symbolic
+  description: Convert string to symbolic expression 字符串转符号表达式
+
+- python_path: sympy.expand
+  wolfram_function: Expand
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - expand
+  - algebra
+  - simplify
+  description: Expand expression 展开表达式
+
+- python_path: sympy.simplify
+  wolfram_function: Simplify
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - simplify
+  - algebra
+  description: Simplify expression 化简表达式
+
+- python_path: sympy.factor
+  wolfram_function: Factor
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - factor
+  - factorize
+  - algebra
+  description: Factor expression 因式分解
+
+- python_path: sympy.collect
+  wolfram_function: Collect
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - collect
+  - group
+  - algebra
+  description: Collect terms 收集同类项
+
+- python_path: sympy.cancel
+  wolfram_function: Cancel
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - cancel
+  - simplify
+  - rational
+  description: Cancel rational expression 约分有理式
+
+- python_path: sympy.apart
+  wolfram_function: Apart
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - apart
+  - partial fraction
+  - rational
+  description: Partial fraction decomposition 部分分式分解
+
+- python_path: sympy.together
+  wolfram_function: Together
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - together
+  - combine
+  - rational
+  description: Combine fractions 通分
+
+- python_path: sympy.trigsimp
+  wolfram_function: TrigReduce
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - trigsimp
+  - trig
+  - simplify
+  description: Simplify trigonometric expression 三角化简
+
+- python_path: sympy.powsimp
+  wolfram_function: PowerExpand
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - powsimp
+  - power
+  - simplify
+  description: Simplify power expression 幂化简
+
+- python_path: sympy.radsimp
+  wolfram_function: "Simplify[#, ExcludedForms->Power]&"
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - radsimp
+  - radical
+  - simplify
+  description: Simplify radical expression 根式化简
+
+- python_path: sympy.diff
+  wolfram_function: D
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - diff
+  - derivative
+  - calculus
+  description: Differentiate expression 求导
+
+- python_path: sympy.integrate
+  wolfram_function: Integrate
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - integrate
+  - integral
+  - calculus
+  description: Integrate expression 积分
+
+- python_path: sympy.limit
+  wolfram_function: Limit
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - limit
+  - calculus
+  description: Compute limit 求极限
+
+- python_path: sympy.series
+  wolfram_function: Series
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - series
+  - taylor
+  - calculus
+  description: Series expansion 级数展开
+
+- python_path: sympy.summation
+  wolfram_function: Sum
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - summation
+  - sum
+  - series
+  description: Symbolic summation 符号求和
+
+- python_path: sympy.product
+  wolfram_function: Product
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - product
+  - multiply
+  - series
+  description: Symbolic product 符号乘积
+
+- python_path: sympy.residue
+  wolfram_function: Residue
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - residue
+  - complex analysis
+  - calculus
+  description: Residue of expression 留数
+
+- python_path: sympy.Derivative
+  wolfram_function: Derivative
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - derivative
+  - class
+  description: Unevaluated derivative 待求导表达式
+
+- python_path: sympy.Integral
+  wolfram_function: Integrate
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - integral
+  - class
+  description: Unevaluated integral 待积分表达式
+
+- python_path: sympy.Sum
+  wolfram_function: Sum
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - sum
+  - class
+  description: Unevaluated sum 待求和表达式
+
+- python_path: sympy.Product
+  wolfram_function: Product
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - product
+  - class
+  description: Unevaluated product 待求积表达式
+
+- python_path: sympy.solve
+  wolfram_function: "Flatten[x /. Solve[#1, x, Reals]]&"
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - solve
+  - equation
+  - algebra
+  description: Solve equation(s) 求解方程
+  notes: 返回实数解列表
+
+- python_path: sympy.nsolve
+  wolfram_function: "Module[{r=FindRoot[#1, {x, #2}]}, x /. r]&"
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - nsolve
+  - numerical
+  - root
+  description: Numerical root finding 数值求根
+  notes: 返回根的数值
+
+- python_path: sympy.linsolve
+  wolfram_function: "LinearSolve[#1, #2]&"
+  output_converter: from_wxf
+  tags:
+  - linsolve
+  - linear
+  - solve
+  description: Solve linear system 求解线性方程组
+  input_converters:
+  - to_wl_matrix
+  - to_wl_list
+
+- python_path: sympy.dsolve
+  wolfram_function: DSolve
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - dsolve
+  - ode
+  - differential
+  description: Solve ODE 求解常微分方程
+  notes: 返回 WLFunction 符号表达式（DSolve 结果无法简单转 Python 原生类型）
+
+- python_path: sympy.solveset
+  wolfram_function: "Flatten[x /. Solve[#1, x, Reals]]&"
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - solveset
+  - solve
+  - set
+  description: Solve equation returning set 集合形式求解
+  notes: 返回实数解列表
+
+- python_path: sympy.ode.dsolve
+  wolfram_function: DSolve
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - dsolve
+  - ode
+  - differential
+  description: Solve ODE (ode module) 常微分方程求解
+  notes: 返回 WLFunction 符号表达式
+
+- python_path: sympy.Matrix
+  wolfram_function: "{{#}}& @@ {#}&"
+  input_converter: to_wl_list
+  output_converter: from_wxf
+  tags:
+  - matrix
+  - linear algebra
+  - symbolic
+  description: Symbolic matrix 符号矩阵
+
+- python_path: sympy.eye
+  wolfram_function: IdentityMatrix
+  input_converter: to_wl_scalar
+  output_converter: from_wxf
+  tags:
+  - eye
+  - identity
+  - matrix
+  description: Identity matrix 单位矩阵
+
+- python_path: sympy.zeros
+  wolfram_function: "ConstantArray[0, {#1, #2}]&"
+  input_converter: to_wl_scalar
+  output_converter: from_wxf
+  tags:
+  - zeros
+  - matrix
+  - symbolic
+  description: Zero matrix 零矩阵
+
+- python_path: sympy.ones
+  wolfram_function: "ConstantArray[1, {#1, #2}]&"
+  input_converter: to_wl_scalar
+  output_converter: from_wxf
+  tags:
+  - ones
+  - matrix
+  - symbolic
+  description: Ones matrix 全一矩阵
+
+- python_path: sympy.diag
+  wolfram_function: DiagonalMatrix
+  input_converter: to_wl_list
+  output_converter: from_wxf
+  tags:
+  - diag
+  - diagonal
+  - matrix
+  description: Diagonal matrix 对角矩阵
+
+- python_path: sympy.det
+  wolfram_function: Det
+  input_converter: to_wl_matrix
+  output_converter: from_wxf
+  tags:
+  - det
+  - determinant
+  - matrix
+  description: Matrix determinant 行列式
+  numeric: true
+
+- python_path: sympy.inv
+  wolfram_function: Inverse
+  input_converter: to_wl_matrix
+  output_converter: from_wxf
+  tags:
+  - inv
+  - inverse
+  - matrix
+  description: Matrix inverse 矩阵求逆
+
+- python_path: sympy.trace
+  wolfram_function: Tr
+  input_converter: to_wl_matrix
+  output_converter: from_wxf
+  tags:
+  - trace
+  - matrix
+  description: Matrix trace 迹
+  numeric: true
+
+- python_path: sympy.transpose
+  wolfram_function: Transpose
+  input_converter: to_wl_matrix
+  output_converter: from_wxf
+  tags:
+  - transpose
+  - matrix
+  description: Matrix transpose 转置
+
+- python_path: sympy.eigenvals
+  wolfram_function: Eigenvalues
+  input_converter: to_wl_matrix
+  output_converter: from_wxf
+  tags:
+  - eigenvalues
+  - eigenvectors
+  - matrix
+  description: Matrix eigenvalues 特征值
+
+- python_path: sympy.eigenvects
+  wolfram_function: Eigensystem
+  input_converter: to_wl_matrix
+  output_converter: from_wxf
+  tags:
+  - eigenvectors
+  - eigensystem
+  - matrix
+  description: Matrix eigenvectors 特征向量
+
+- python_path: sympy.GramSchmidt
+  wolfram_function: Orthogonalize
+  input_converter: to_wl_list
+  output_converter: from_wxf
+  tags:
+  - gram schmidt
+  - orthogonal
+  - matrix
+  description: Gram-Schmidt orthogonalization 正交化
+
+- python_path: sympy.sin
+  wolfram_function: Sin
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - sin
+  - trigonometry
+  - symbolic
+  description: Symbolic sine 符号正弦
+
+- python_path: sympy.cos
+  wolfram_function: Cos
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - cos
+  - trigonometry
+  - symbolic
+  description: Symbolic cosine 符号余弦
+
+- python_path: sympy.tan
+  wolfram_function: Tan
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - tan
+  - trigonometry
+  - symbolic
+  description: Symbolic tangent 符号正切
+
+- python_path: sympy.asin
+  wolfram_function: ArcSin
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - asin
+  - arcsin
+  - inverse trig
+  - symbolic
+  description: Symbolic arcsin 符号反正弦
+
+- python_path: sympy.acos
+  wolfram_function: ArcCos
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - acos
+  - arccos
+  - inverse trig
+  - symbolic
+  description: Symbolic arccos 符号反余弦
+
+- python_path: sympy.atan
+  wolfram_function: ArcTan
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - atan
+  - arctan
+  - inverse trig
+  - symbolic
+  description: Symbolic arctan 符号反正切
+
+- python_path: sympy.exp
+  wolfram_function: Exp
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - exp
+  - exponential
+  - symbolic
+  description: Symbolic exponential 符号指数
+
+- python_path: sympy.log
+  wolfram_function: Log
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - log
+  - logarithm
+  - symbolic
+  description: Symbolic natural log 符号自然对数
+
+- python_path: sympy.sqrt
+  wolfram_function: Sqrt
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - sqrt
+  - square root
+  - symbolic
+  description: Symbolic square root 符号平方根
+
+- python_path: sympy.Abs
+  wolfram_function: Abs
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - abs
+  - absolute
+  - symbolic
+  description: Symbolic absolute value 符号绝对值
+
+- python_path: sympy.sign
+  wolfram_function: Sign
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - sign
+  - symbolic
+  description: Symbolic sign function 符号符号函数
+
+- python_path: sympy.re
+  wolfram_function: Re
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - re
+  - real part
+  - complex
+  - symbolic
+  description: Real part 实部
+
+- python_path: sympy.im
+  wolfram_function: Im
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - im
+  - imaginary part
+  - complex
+  - symbolic
+  description: Imaginary part 虚部
+
+- python_path: sympy.conjugate
+  wolfram_function: Conjugate
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - conjugate
+  - complex
+  - symbolic
+  description: Complex conjugate 共轭
+
+- python_path: sympy.cot
+  wolfram_function: Cot
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - cot
+  - trigonometry
+  description: Cotangent 余切
+
+- python_path: sympy.sec
+  wolfram_function: Sec
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - sec
+  - trigonometry
+  description: Secant 正割
+
+- python_path: sympy.csc
+  wolfram_function: Csc
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - csc
+  - trigonometry
+  description: Cosecant 余割
+
+- python_path: sympy.acot
+  wolfram_function: ArcCot
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - acot
+  - inverse trig
+  description: Inverse cotangent 反余切
+
+- python_path: sympy.sinh
+  wolfram_function: Sinh
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - sinh
+  - hyperbolic
+  description: Hyperbolic sine 双曲正弦
+
+- python_path: sympy.cosh
+  wolfram_function: Cosh
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - cosh
+  - hyperbolic
+  description: Hyperbolic cosine 双曲余弦
+
+- python_path: sympy.tanh
+  wolfram_function: Tanh
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - tanh
+  - hyperbolic
+  description: Hyperbolic tangent 双曲正切
+
+- python_path: sympy.asinh
+  wolfram_function: ArcSinh
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - asinh
+  - inverse hyperbolic
+  description: Inverse hyperbolic sine 反双曲正弦
+
+- python_path: sympy.acosh
+  wolfram_function: ArcCosh
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - acosh
+  - inverse hyperbolic
+  description: Inverse hyperbolic cosine 反双曲余弦
+
+- python_path: sympy.atanh
+  wolfram_function: ArcTanh
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - atanh
+  - inverse hyperbolic
+  description: Inverse hyperbolic tangent 反双曲正切
+
+- python_path: sympy.atan2
+  wolfram_function: ArcTan
+  input_converters:
+  - to_wl_passthrough
+  - to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - atan2
+  - arctan2
+  description: Two-argument arctan 二参数反正切
+
+- python_path: sympy.gamma
+  wolfram_function: Gamma
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - gamma
+  - special function
+  - symbolic
+  description: Gamma function Gamma函数
+
+- python_path: sympy.beta
+  wolfram_function: Beta
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - beta
+  - special function
+  - symbolic
+  description: Beta function Beta函数
+
+- python_path: sympy.erf
+  wolfram_function: Erf
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - erf
+  - error function
+  - symbolic
+  description: Error function 误差函数
+
+- python_path: sympy.erfi
+  wolfram_function: Erfi
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - erfi
+  - error function
+  - symbolic
+  description: Imaginary error function 虚误差函数
+
+- python_path: sympy.besselj
+  wolfram_function: BesselJ
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - bessel
+  - special function
+  - symbolic
+  description: Bessel function of first kind Bessel函数
+
+- python_path: sympy.zeta
+  wolfram_function: Zeta
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - zeta
+  - riemann
+  - special function
+  description: Riemann zeta function Riemann zeta函数
+
+- python_path: sympy.legendre
+  wolfram_function: LegendreP
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - legendre
+  - polynomial
+  - special function
+  description: Legendre polynomial Legendre多项式
+
+- python_path: sympy.hermite
+  wolfram_function: HermiteH
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - hermite
+  - polynomial
+  - special function
+  description: Hermite polynomial Hermite多项式
+
+- python_path: sympy.laguerre
+  wolfram_function: LaguerreL
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - laguerre
+  - polynomial
+  - special function
+  description: Laguerre polynomial Laguerre多项式
+
+- python_path: sympy.chebyshevt
+  wolfram_function: ChebyshevT
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - chebyshev
+  - polynomial
+  - special function
+  description: Chebyshev T polynomial Chebyshev T多项式
+
+- python_path: sympy.Piecewise
+  wolfram_function: Piecewise
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - piecewise
+  - conditional
+  description: Piecewise function 分段函数
+
+- python_path: sympy.Heaviside
+  wolfram_function: HeavisideTheta
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - heaviside
+  - step
+  description: Heaviside step function
+
+- python_path: sympy.DiracDelta
+  wolfram_function: DiracDelta
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - dirac
+  - delta
+  description: Dirac delta function
+
+- python_path: sympy.factorial
+  wolfram_function: Factorial
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - factorial
+  - combinatorics
+  description: Factorial 阶乘 n!
+
+- python_path: sympy.binomial
+  wolfram_function: Binomial
+  input_converters:
+  - to_wl_passthrough
+  - to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - binomial
+  - combinatorics
+  description: Binomial coefficient 二项式系数
+
+- python_path: sympy.lambertw
+  wolfram_function: ProductLog
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - lambertw
+  - productlog
+  - special
+  description: Lambert W function（极重要！）
+
+- python_path: sympy.gcd
+  wolfram_function: GCD
+  input_converters:
+  - to_wl_passthrough
+  - to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - gcd
+  - number theory
+  description: Greatest common divisor 最大公约数
+
+- python_path: sympy.lcm
+  wolfram_function: LCM
+  input_converters:
+  - to_wl_passthrough
+  - to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - lcm
+  - number theory
+  description: Least common multiple 最小公倍数
+
+- python_path: sympy.N
+  wolfram_function: N
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - N
+  - numerical
+  - evaluate
+  description: Numerical evaluation 数值求值
+
+- python_path: sympy.lambdify
+  wolfram_function: Compile
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - lambdify
+  - compile
+  - numerical
+  description: Convert symbolic to numeric function 符号转数值函数
+
+- python_path: sympy.plot
+  wolfram_function: Plot
+  input_converter: to_wl_passthrough
+  output_converter: from_wl_image
+  tags:
+  - plot
+  - graph
+  - visualization
+  description: Plot symbolic expression 绘制符号表达式
+
+- python_path: sympy.plot3d
+  wolfram_function: Plot3D
+  input_converter: to_wl_passthrough
+  output_converter: from_wl_image
+  tags:
+  - plot3d
+  - 3d graph
+  - visualization
+  description: 3D plot of symbolic expression 三维符号绘图
+
+- python_path: sympy.groebner
+  wolfram_function: GroebnerBasis
+  input_converter: to_wl_list
+  output_converter: from_wxf
+  tags:
+  - groebner
+  - polynomial
+  - algebra
+  description: Groebner basis Groebner基
+
+- python_path: sympy.Rational
+  wolfram_function: Rational
+  input_converters:
+  - to_wl_scalar
+  - to_wl_scalar
+  output_converter: from_wxf
+  tags:
+  - rational
+  - fraction
+  - number
+  description: Rational number 有理数
+
+- python_path: sympy.Integer
+  wolfram_function: Integer
+  input_converter: to_wl_scalar
+  output_converter: from_wxf
+  tags:
+  - integer
+  - number
+  description: Integer type 整数类型
+
+- python_path: sympy.Float
+  wolfram_function: "N[#, #2]&"
+  input_converter: to_wl_scalar
+  output_converter: from_wxf
+  tags:
+  - float
+  - decimal
+  - number
+  description: Arbitrary precision float 任意精度浮点
+
+- python_path: sympy.pi
+  wolfram_function: Pi
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - pi
+  - constant
+  - symbolic
+  description: Pi 圆周率
+  constant: true
+  numeric: true
+
+- python_path: sympy.E
+  wolfram_function: E
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - e
+  - exp
+  - constant
+  - symbolic
+  description: E 自然对数底数
+  constant: true
+  numeric: true
+
+- python_path: sympy.I
+  wolfram_function: I
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - i
+  - imaginary
+  - constant
+  - symbolic
+  description: I 虚数单位
+  constant: true
+
+- python_path: sympy.nan
+  wolfram_function: Indeterminate
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - nan
+  - indeterminate
+  - constant
+  description: Not a Number / 不定式
+  constant: true
+
+- python_path: sympy.zoo
+  wolfram_function: ComplexInfinity
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - zoo
+  - complex infinity
+  description: Complex infinity 复无穷
+  constant: true
+
+- python_path: sympy.EulerGamma
+  wolfram_function: EulerGamma
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - euler gamma
+  - constant
+  description: Euler-Mascheroni constant 欧拉常数
+  constant: true
+  numeric: true
+
+- python_path: sympy.Catalan
+  wolfram_function: Catalan
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - catalan
+  - constant
+  description: Catalan constant 卡塔兰常数
+  constant: true
+  numeric: true
+
+- python_path: sympy.golden_ratio
+  wolfram_function: GoldenRatio
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - golden
+  - constant
+  description: Golden ratio 黄金分割比
+  constant: true
+  numeric: true
+
+- python_path: sympy.oo
+  wolfram_function: Infinity
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - infinity
+  - oo
+  - symbolic
+  description: Positive infinity 正无穷
+  constant: true
+
+- python_path: sympy.Pow
+  wolfram_function: Power
+  input_converters:
+  - to_wl_passthrough
+  - to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - pow
+  - power
+  - arithmetic
+  - symbolic
+  description: "Power / exponentiation 幂运算 x**y → Power[x,y]"
+
+- python_path: sympy.Add
+  wolfram_function: Plus
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - add
+  - plus
+  - arithmetic
+  - symbolic
+  description: "N-ary addition 多元加法 x+y+z → Plus[x,y,z]"
+
+- python_path: sympy.Mul
+  wolfram_function: Times
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - mul
+  - times
+  - arithmetic
+  - symbolic
+  description: "N-ary multiplication 多元乘法 x*y*z → Times[x,y,z]"
+
+- python_path: sympy.Mod
+  wolfram_function: Mod
+  input_converters:
+  - to_wl_passthrough
+  - to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - mod
+  - modulo
+  - arithmetic
+  - symbolic
+  description: "Modulo 取余 x%y → Mod[x,y]"
+
+- python_path: sympy.floor
+  wolfram_function: Floor
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - floor
+  - round
+  - integer
+  - symbolic
+  description: Floor function 向下取整
+
+- python_path: sympy.ceiling
+  wolfram_function: Ceiling
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - ceiling
+  - ceil
+  - round
+  - integer
+  - symbolic
+  description: Ceiling function 向上取整
+
+- python_path: sympy.frac
+  wolfram_function: FractionalPart
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - frac
+  - fractional part
+  - symbolic
+  description: "Fractional part 小数部分 x - Floor[x]"
+
+- python_path: sympy.Eq
+  wolfram_function: Equal
+  input_converters:
+  - to_wl_passthrough
+  - to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - eq
+  - equal
+  - relation
+  - symbolic
+  description: "Symbolic equality x==y → Equal[x,y]"
+
+- python_path: sympy.Ne
+  wolfram_function: Unequal
+  input_converters:
+  - to_wl_passthrough
+  - to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - ne
+  - unequal
+  - relation
+  - symbolic
+  description: "Symbolic inequality x!=y → Unequal[x,y]"
+
+- python_path: sympy.Lt
+  wolfram_function: Less
+  input_converters:
+  - to_wl_passthrough
+  - to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - lt
+  - less
+  - relation
+  - symbolic
+  description: "Less than x<y → Less[x,y]"
+
+- python_path: sympy.Le
+  wolfram_function: LessEqual
+  input_converters:
+  - to_wl_passthrough
+  - to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - le
+  - less equal
+  - relation
+  - symbolic
+  description: "Less or equal x<=y → LessEqual[x,y]"
+
+- python_path: sympy.Gt
+  wolfram_function: Greater
+  input_converters:
+  - to_wl_passthrough
+  - to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - gt
+  - greater
+  - relation
+  - symbolic
+  description: "Greater than x>y → Greater[x,y]"
+
+- python_path: sympy.Ge
+  wolfram_function: GreaterEqual
+  input_converters:
+  - to_wl_passthrough
+  - to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - ge
+  - greater equal
+  - relation
+  - symbolic
+  description: "Greater or equal x>=y → GreaterEqual[x,y]"
+
+- python_path: sympy.And
+  wolfram_function: And
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - and
+  - logic
+  - boolean
+  - symbolic
+  description: "Logical AND 逻辑与 And[p,q,...]"
+
+- python_path: sympy.Or
+  wolfram_function: Or
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - or
+  - logic
+  - boolean
+  - symbolic
+  description: "Logical OR 逻辑或 Or[p,q,...]"
+
+- python_path: sympy.Not
+  wolfram_function: Not
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - not
+  - negate
+  - logic
+  - boolean
+  - symbolic
+  description: "Logical NOT 逻辑非 Not[p]"
+
+- python_path: sympy.Xor
+  wolfram_function: Xor
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - xor
+  - exclusive or
+  - logic
+  - boolean
+  - symbolic
+  description: "Logical XOR 异或 Xor[p,q]"
+
+- python_path: sympy.Implies
+  wolfram_function: Implies
+  input_converters:
+  - to_wl_passthrough
+  - to_wl_passthrough
+  output_converter: from_wxf
+  tags:
+  - implies
+  - implication
+  - logic
+  - symbolic
+  description: Logical implication 逻辑蕴含 p→q
+
+- python_path: sympy.Min
+  wolfram_function: "Min @@ #&"
+  input_converter: to_wl_list
+  output_converter: from_wxf
+  tags:
+  - min
+  - minimum
+  - symbolic
+  description: "Symbolic minimum 符号最小值 Min[x,y,...]"
+  numeric: true
+
+- python_path: sympy.Max
+  wolfram_function: "Max @@ #&"
+  input_converter: to_wl_list
+  output_converter: from_wxf
+  tags:
+  - max
+  - maximum
+  - symbolic
+  description: "Symbolic maximum 符号最大值 Max[x,y,...]"
+  numeric: true
+
+- python_path: sympy.GoldenRatio
+  wolfram_function: GoldenRatio
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  constant: true
+  numeric: true
+  tags:
+  - golden_ratio
+  - constant
+  - sympy
+  description: Golden ratio phi ≈ 1.61803
+
+- python_path: sympy.TribonacciConstant
+  wolfram_function: TribonacciConstant
+  input_converter: to_wl_passthrough
+  output_converter: from_wxf
+  constant: true
+  numeric: true
+  tags:
+  - tribonacci
+  - constant
+  - sympy
+  description: Tribonacci constant ≈ 1.83929

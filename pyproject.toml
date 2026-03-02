@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "py2wl"
+version = "0.6.1"
+description = "Python → Wolfram Language bridge via PTY, with compat layer for NumPy/SciPy/pandas/PyTorch etc."
+requires-python = ">=3.9"
+dependencies = [
+    "pexpect",   # PTY 内核通信
+    "pyyaml",    # 映射规则加载
+]
+
+[project.optional-dependencies]
+wxf = ["wolframclient>=1.4.0"]  # WXF 无损序列化（强烈推荐）
+ai  = ["requests"]              # AI 容错插件（所有 provider 均用 REST）
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["py2wl*"]
+
+[tool.setuptools.package-data]
+"py2wl.compat" = ["mappings/*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

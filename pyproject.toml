@@ -1,13 +1,14 @@
 [build-system]
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
+
 [project]
 name = "py2wl"
-version = "0.6.1"
+version = "0.6.2"
 description = "Python → Wolfram Language bridge via PTY, with compat layer for NumPy/SciPy/pandas/PyTorch etc."
 requires-python = ">=3.9"
 dependencies = [
-    "pexpect",   # PTY 内核通信
+    "wolframclient",   #  内核通信
     "pyyaml",    # 映射规则加载
 ]
 

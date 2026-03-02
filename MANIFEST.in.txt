@@ -1,0 +1,22 @@
+# MANIFEST.in — 控制 sdist（源码包）打包时包含哪些非 Python 文件
+
+# 映射规则（核心数据文件，必须包含）
+recursive-include py2wl/compat/mappings *.yaml
+
+# 项目说明文件
+include README.md
+include LICENSE
+include pyproject.toml
+
+# 排除开发专用文件
+exclude *.bak
+recursive-exclude * *.bak
+recursive-exclude * __pycache__
+recursive-exclude * *.py[cod]
+recursive-exclude .git *
+exclude perf_compare*.py
+exclude generate_*.py
+exclude demo.py
+exclude DemoHardKernel.py
+exclude rule_editor.py
+exclude release.py

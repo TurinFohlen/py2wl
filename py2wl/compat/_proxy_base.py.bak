@@ -16,7 +16,7 @@ import logging
 from pathlib import Path
 from ._state import _state
 
-log = logging.getLogger("py2wl.compat")
+log = logging.getLogger("wolfram_bridge.compat")
 
 _DEFAULT_MAPPINGS = str(Path(__file__).parent / "mappings")
 
@@ -41,7 +41,15 @@ def _get_resolver():
 def _get_kernel():
     if _state["kernel"] is not None:
         return _state["kernel"]
-    from py2wl.kernel import WolframKernel
+    try:
+        from wolfram_bridge.kernel import WolframKernel
+    except ImportError:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            "wfb_core", Path(__file__).parent.parent / "wolfram_bridge.py")
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        WolframKernel = mod.WolframKernel
     _state["kernel"] = WolframKernel()
     return _state["kernel"]
 
@@ -66,44 +74,6 @@ def _get_fault_handler():
     _state["fault_handler"] = FaultHandler(resolver._repo, ai, mode)
     log.info(f"容错系统初始化，模式：{mode.value}")
     return _state["fault_handler"]
-
-
-# ── 双哈希缓存层 ────────────────────────────────────────────────
-from ._core.result_cache import _cache as _CACHE, ResultCache
-
-def _maybe_cached(rule, args, kwargs, core_expr: str):
-    """
-    命中 → 直接返回缓存结果，绕过序列化 + 内核 + 反序列化。
-    未命中 → 返回 None。
-    cacheable: false 的规则永远不查缓存。
-    """
-    if rule and rule.get("cacheable") is False:
-        return None
-    cmd_hash = ResultCache.hash_expr(core_expr)
-    return _CACHE.get(cmd_hash)
-
-def _store_in_cache(rule, args, kwargs, core_expr: str, value) -> None:
-    """
-    将 (cmd_hash, result_hash, value) 存入缓存。
-    result_hash 用于跨表达式结果去重。
-    cacheable: false 的规则跳过。
-    存入前对浮点数结果做精度截断（与 hash_result 保持一致），
-    使缓存返回值和直接计算结果在数值上完全相同。
-    """
-    if rule and rule.get("cacheable") is False:
-        return
-    from ._core.result_cache import _normalize_for_hash
-    value = _normalize_for_hash(value)
-    cmd_hash = ResultCache.hash_expr(core_expr)
-    _CACHE.put(cmd_hash, value)
-
-def cache_stats() -> dict:
-    """返回缓存统计（条目数/命中率/去重数）。"""
-    return _CACHE.stats()
-
-def cache_clear() -> None:
-    """清空结果缓存。"""
-    _CACHE.clear()
 
 
 # ── 核心调用类 ──────────────────────────────────────────────────
@@ -137,58 +107,39 @@ class _WolframCallable:
                 return self._handle_fault(exc, path, args, kwargs,
                                           raw_wl=None, handler=handler)
 
-        # ── Step 2：构造核心表达式 ───────────────────────────────
+        # ── Step 2：构造 WL 表达式 ───────────────────────────────
         try:
-            core_expr = resolver.build_wl_expr(rule, args, kwargs)
+            expr, tmp_path = resolver.build_wl_expr(rule, args, kwargs)
         except Exception as e:
             return self._handle_fault(e, path, args, kwargs,
                                       raw_wl=None, handler=handler)
 
-        # ── Step 3：缓存检查 ─────────────────────────────────────
-        cached = _maybe_cached(rule, args, kwargs, core_expr)
-        if cached is not None:
-            return cached
-
-        # ── Step 4：内核执行 ─────────────────────────────────────
+        # ── Step 3：内核执行 ─────────────────────────────────────
         kernel = _get_kernel()
-        oc = rule.get("output_converter", "from_wxf")
-
         try:
-            if oc == "from_wl_image":
-                # 图像输出：通过 evaluate_to_file 获得文件路径。
-                #
-                # 无头模式（headless）下 Wolfram Engine 没有图形前端，
-                # Plot/ListPlot/Plot3D 等函数返回符号 Graphics 对象而非像素，
-                # Export 会把对象的文字表示写入文件而不是真正的图片。
-                #
-                # 解决：内核侧用 Rasterize[] 强制光栅化，把符号图形转成像素矩阵，
-                # Export 拿到的才是真正的图像数据。
-                #
-                # 分辨率优先级：
-                #   1. 规则字段 raster_size（如 [1920, 1080]）
-                #   2. 环境变量 PY2WL_RASTER_SIZE（如 "1920x1080"）
-                #   3. 默认 1920x1080
-                fmt = rule.get("image_format", "png")
-                _default_raster = os.environ.get("PY2WL_RASTER_SIZE", "1920x1080")
-                _w, _h = (int(x) for x in _default_raster.lower().split("x"))
-                _raster = rule.get("raster_size", [_w, _h])
-                _raster_wl = f"{{{_raster[0]}, {_raster[1]}}}"
-                core_expr = f"Rasterize[{core_expr}, RasterSize->{_raster_wl}]"
-                result = kernel.evaluate_to_file(core_expr, fmt=fmt)
+            raw = kernel.evaluate(expr)
+        except Exception as e:
+            if tmp_path and os.path.exists(tmp_path):
+                os.unlink(tmp_path)
+            return self._handle_fault(e, path, args, kwargs,
+                                      raw_wl=expr, handler=handler)
+
+        # ── Step 4：输出转换 ─────────────────────────────────────
+        from ._core.converters import convert_output
+        oc = rule.get("output_converter", "from_wl_passthrough")
+        try:
+            if tmp_path:
+                try:
+                    result = convert_output(tmp_path, oc)
+                finally:
+                    if os.path.exists(tmp_path):
+                        os.unlink(tmp_path)
             else:
-                # 其他类型：直接 evaluate 获得 Python 对象
-                # _normalize：PackedArray/WLFunction → Python 原生类型
-                from ._core.converters import _normalize
-                result = _normalize(kernel.evaluate(core_expr))
-
-            # ── Step 5：存入缓存 ─────────────────────────────────
-            _store_in_cache(rule, args, kwargs, core_expr, result)
-
+                result = convert_output(raw, oc)
             return result
-
         except Exception as e:
             return self._handle_fault(e, path, args, kwargs,
-                                      raw_wl=core_expr, handler=handler)
+                                      raw_wl=expr, handler=handler)
 
     def _handle_fault(self, exc, path, args, kwargs, raw_wl, handler):
         """
@@ -228,36 +179,24 @@ class _WolframCallable:
 class LibraryProxy:
     """
     通用命名空间代理。
-    - 精确路径匹配 → _WolframCallable（或常量立即求值）
-    - 其余 → 递归 LibraryProxy（支持 np.fft.fft 链式访问）
+    - 精确路径匹配 → _WolframCallable
+    - 其余 → 递归 LibraryProxy（支持 np.fft.fft 这样的链式访问）
     """
     def __init__(self, path: str):
         object.__setattr__(self, "_path", path)
-        object.__setattr__(self, "_const_cache", {})
-        object.__setattr__(self, "_const_lock", __import__("threading").Lock())
 
     def __getattr__(self, name: str):
         if name.startswith("_"):
             raise AttributeError(name)
-
-        cache = object.__getattribute__(self, "_const_cache")
-        if name in cache:
-            return cache[name]
-
         new_path = f"{object.__getattribute__(self, '_path')}.{name}"
         rule = _get_resolver()._repo.get_rule(new_path)
-
         if rule is not None:
+            # constant: true → 属性访问时立即求值，不返回 callable
+            # 类比 numeric: true（resolver 侧包 N[]），区别在于触发时机：
+            # 常量在属性访问时就执行内核调用，函数在调用时才执行。
             if rule.get("constant"):
-                lock = object.__getattribute__(self, "_const_lock")
-                with lock:
-                    if name in cache:
-                        return cache[name]
-                    value = _WolframCallable(new_path)()
-                    cache[name] = value
-                return value
+                return _WolframCallable(new_path)()
             return _WolframCallable(new_path)
-
         return LibraryProxy(new_path)
 
     def __call__(self, *args, **kwargs):

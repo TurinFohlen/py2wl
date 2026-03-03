@@ -1,0 +1,8 @@
+wolframclient
+pyyaml
+
+[ai]
+requests
+
+[wxf]
+wolframclient>=1.4.0

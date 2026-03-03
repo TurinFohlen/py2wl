@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: py2wl
+Version: 0.6.2
+Summary: Python → Wolfram Language bridge via PTY, with compat layer for NumPy/SciPy/pandas/PyTorch etc.
+Requires-Python: >=3.9
+License-File: LICENSE
+Requires-Dist: wolframclient
+Requires-Dist: pyyaml
+Provides-Extra: wxf
+Requires-Dist: wolframclient>=1.4.0; extra == "wxf"
+Provides-Extra: ai
+Requires-Dist: requests; extra == "ai"
+Dynamic: license-file

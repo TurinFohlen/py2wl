@@ -92,8 +92,6 @@ def _store_in_cache(rule, args, kwargs, core_expr: str, value) -> None:
     """
     if rule and rule.get("cacheable") is False:
         return
-    from ._core.result_cache import _normalize_for_hash
-    value = _normalize_for_hash(value)
     cmd_hash = ResultCache.hash_expr(core_expr)
     _CACHE.put(cmd_hash, value)
 

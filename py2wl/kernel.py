@@ -240,15 +240,13 @@ class WolframKernel:
         不受此选项影响。
         """
         try:
-            self.evaluate(
-                'SetSystemOptions["CompileOptions" -> {'
-                '  "CompileTarget" -> "C", '
-                '  "CompileFallback" -> True, '
-                '  "OptimizationLevel" -> 3'
-                '}]',
-                _skip_parallel_init=True
-            )
-            log.info('Compile 优化已启用：CompileTarget=C, OptimizationLevel=3, CompileFallback=True')
+            # $CompilationTarget：全局变量，对所有后续 Compile[] 调用生效
+            # 有 C 编译器时生成原生机器码，没有时 Wolfram 自动退回 WVM（内置行为）
+            self.evaluate('$CompilationTarget = "C"', _skip_parallel_init=True)
+            # Compile`$CCompilerOptions：传给底层 C 编译器的额外标志
+            # -O3 开启最高级别优化（循环展开、向量化、内联）
+            self.evaluate('Compile`$CCompilerOptions = {"-O3"}', _skip_parallel_init=True)
+            log.info('Compile 优化已启用：$CompilationTarget=C, CCompilerOptions=-O3')
         except Exception as e:
             log.warning(f"设置 Compile 优化选项失败（不影响主内核）: {e}")
 

@@ -4,20 +4,39 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "py2wl"
-version = "0.6.4"
-description = "Python → Wolfram Language bridge via PTY, with compat layer for NumPy/SciPy/pandas/PyTorch etc."
+version = "0.7.0"
+description = "Python → Wolfram Language bridge: drop-in compat for NumPy/SciPy/pandas/SymPy/PyTorch/sklearn/Matplotlib + Jupyter integration"
 requires-python = ">=3.9"
+license = {text = "MIT"}
+keywords = ["wolfram", "mathematica", "numpy", "scipy", "symbolic", "jupyter"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 dependencies = [
-    "wolframclient",   #  内核通信
-    "pyyaml",    # 映射规则加载
+    "wolframclient>=1.4.0",  # WSTP 内核通信 + WXF 序列化
+    "pyyaml>=5.0",           # 映射规则加载
 ]
 
 [project.optional-dependencies]
-wxf = ["wolframclient>=1.4.0"]  # WXF 无损序列化（强烈推荐）
-ai  = ["requests"]              # AI 容错插件（所有 provider 均用 REST）
+ai      = ["requests>=2.28"]                    # AI 容错插件（Claude/DeepSeek/Gemini/Groq）
+jupyter = ["ipython>=7.0", "notebook>=6.0"]    # Jupyter Notebook / Lab 集成
+all     = ["requests>=2.28", "ipython>=7.0", "notebook>=6.0"]  # 全功能安装
+
+[project.urls]
+Homepage   = "https://github.com/your-org/py2wl"
+PyPI       = "https://pypi.org/project/py2wl/"
 
 [tool.setuptools.packages.find]
-where = ["."]
+where   = ["."]
 include = ["py2wl*"]
 
 [tool.setuptools.package-data]

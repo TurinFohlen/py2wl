@@ -10,4 +10,14 @@ def __getattr__(name):
         # WolframPipeline 已在 WSTP 版本中移除，保留兼容名避免 ImportError
         raise AttributeError(
             "WolframPipeline 已移除，请直接使用 WolframKernel.evaluate()")
+    if name == "KernelPool":
+        from .pool import KernelPool
+        import sys
+        sys.modules[__name__].KernelPool = KernelPool
+        return KernelPool
+    if name == "jupyter":
+        from . import jupyter
+        import sys
+        sys.modules[__name__ + ".jupyter"] = jupyter
+        return jupyter
     raise AttributeError(f"module 'py2wl' has no attribute {name!r}")
